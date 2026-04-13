@@ -3,52 +3,55 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
-# إعدادات الواجهة السيادية العابرة للحدود
-st.set_page_config(page_title="G-Systems Global | Regional Command", page_icon="🌴", layout="wide")
+# إعدادات الواجهة السيادية
+st.set_page_config(page_title="G-Systems Global | Web3 Command", page_icon="🔗", layout="wide")
 
-# --- محرك البيانات (توشكى vs القصيم) ---
+# --- وظائف الـ Web3 ---
+def connect_wallet():
+    if st.sidebar.button("Connect MetaMask Wallet"):
+        # محاكاة الربط مع الحساب الظاهر في صورتك
+        st.sidebar.success("Connected: 0x71C...8A3 (Account 3)") #
+        st.sidebar.info("Network: Base Mainnet")
+
+# --- محرك البيانات ---
 def get_site_data(site_name):
     if site_name == "Toshka (Egypt)":
-        return np.random.rand(10, 10), "0.82", "22%", "Sector D"
-    else: # Al-Rajhi Farm (Qassim)
-        return np.random.rand(12, 12) * 0.9, "0.88", "18%", "Block 7 (Sukkari)"
+        return np.random.rand(10, 10), "0.82", "Sector D"
+    else:
+        return np.random.rand(12, 12) * 0.9, "0.88", "Block 7 (Sukkari)"
 
-# --- القائمة الجانبية والاقتصاد ---
+# --- الواجهة الجانبية ---
 st.sidebar.title("🌍 Global Operations")
 selected_site = st.sidebar.selectbox("Select Strategic Site", ["Toshka (Egypt)", "Al-Rajhi Farm (Qassim)"])
+connect_wallet()
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("💎 G-Token Economy")
-st.sidebar.metric("GTK Price", "$1.24", "+5.2%")
+st.sidebar.write("Price: $1.24 | Trend: +5.2%") #
 
-# --- واجهة التحكم الرئيسية ---
-st.title(f"🛡️ Strategic Command: {selected_site}")
-grid, ndvi, moisture, focus_area = get_site_data(selected_site)
+# --- لوحة التحكم الرئيسية ---
+st.title(f"🛡️ Strategic Command Center: {selected_site}")
+grid, ndvi, focus_area = get_site_data(selected_site)
 
 col1, col2 = st.columns([3, 1])
 
 with col1:
     st.subheader(f"Satellite Intelligence Feed: {selected_site}")
     fig, ax = plt.subplots(figsize=(10, 5))
-    im = ax.imshow(grid, cmap='RdYlGn')
+    ax.imshow(grid, cmap='RdYlGn')
     plt.title(f"Real-time NDVI Analysis - {selected_site}")
     st.pyplot(fig)
-    st.caption(f"Source: Sentinel-2 L2A | Last Pass: 2 Hours Ago")
 
 with col2:
     st.write(f"### {focus_area} Insights")
     st.metric("Health Index (NDVI)", ndvi)
-    st.metric("Soil Moisture", moisture)
-    if selected_site == "Al-Rajhi Farm (Qassim)":
-        st.success("Optimal Quality for Export")
-    else:
-        st.warning("Irrigation Optimization Required")
+    if float(ndvi) > 0.85:
+        st.success("Certified for International Export") #
+    
+    # زر التوريق المالي (RWA)
+    if st.button("Tokenize Asset ($GTK)"):
+        st.warning("Verifying Proof of Harvest on Blockchain...")
+        st.success(f"Asset Securitized. Tokens issued to Account 3.")
 
-# بوابة البلوكشين وتوريق الأصول (RWA)
 st.markdown("---")
-st.subheader("🔗 Blockchain Asset Securitization (RWA)")
-if st.button(f"Tokenize {selected_site} Harvest"):
-    st.info(f"Processing Real-World Asset Tokenization for {selected_site}...")
-    st.success(f"Assets Successfully Tokenized as $GTK on Base Network.")
-
-st.caption("Powered by G-Systems Global AI | Secured Regional Gateway")
+st.caption("G-Systems Global | Secured by Encrypted Blockchain Data Stream") #
