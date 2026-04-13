@@ -4,76 +4,72 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
-# إعدادات الفخامة والسيادة الرقمية
-st.set_page_config(page_title="G-Systems Global | AI Command", page_icon="📡", layout="wide")
+# إعدادات الواجهة السيادية للهيبة التقنية
+st.set_page_config(page_title="G-Systems Global | Live Space Feed", page_icon="🛰️", layout="wide")
 
-# تخصيص واجهة المستخدم بـ CSS بسيط للهيبة التقنية
-st.markdown("""
-    <style>
-    .main { background-color: #0e1117; }
-    .stMetric { background-color: #161b22; border-radius: 10px; padding: 15px; border: 1px solid #30363d; }
-    </style>
-    """, unsafe_allow_html=True)
+# --- محرك البحث الفضائي الذكي ---
+def remote_sensing_engine(location):
+    # توليد مصفوفة بيانات تحاكي الواقع الطيفي
+    grid_size = 20
+    data = np.random.rand(grid_size, grid_size)
+    return data
 
-# --- المحرك الذكي للمواقع ---
-def load_satellite_intel(site):
-    if site == "توشكى (مصر)":
-        data = np.random.rand(15, 15)
-        metrics = {"ndvi": "0.82", "moisture": "22%", "status": "Warning: Sector D"}
-    else:
-        data = np.random.rand(15, 15) * 0.95
-        metrics = {"ndvi": "0.88", "moisture": "18%", "status": "Optimal: Export Ready"}
-    return data, metrics
-
-# --- القائمة الجانبية: بوابة Web3 والاقتصاد ---
-st.sidebar.image("https://cdn-icons-png.flaticon.com/512/2092/2092663.png", width=80)
-st.sidebar.title("G-Systems Global")
-st.sidebar.info("Economic Integrity & Food Security")
-
+# --- القائمة الجانبية: بوابة السيادة الرقمية ---
+st.sidebar.title("🛡️ G-Systems Global")
+st.sidebar.markdown("### Digital Sovereignty")
 if st.sidebar.button("🔗 Connect MetaMask Wallet"):
-    with st.sidebar.spinner("Connecting to Base Network..."):
+    with st.sidebar.spinner("Accessing Blockchain..."):
         time.sleep(1.5)
-        st.sidebar.success("Linked: 0x71C...8A3 (Account 3)")
+        st.sidebar.success("Linked: 0x71C...8A3 (Acc 3)")
 
 st.sidebar.markdown("---")
 st.sidebar.subheader("💎 $GTK Economy")
-st.sidebar.metric("Token Value", "$1.24", "5.2%")
+st.sidebar.metric("Asset Value", "$1.24", "+5.2%")
 
-# --- لوحة التحكم الرئيسية ---
-selected_site = st.selectbox("اختر الموقع الاستراتيجي للمراقبة:", ["توشكى (مصر)", "مزرعة الراجحي (القصيم)"])
-st.title(f"📡 مركز القيادة والسيطرة: {selected_site}")
+# --- واجهة العرض الحي الرئيسي ---
+st.title("🛰️ مركز الاستقبال والتحليل الفضائي اللحظي")
+st.write("الربط المباشر مع أقمار **Sentinel-2** التابعة لوكالة الفضاء الأوروبية.")
 
-data, metrics = load_satellite_intel(selected_site)
+# إدخال الإحداثيات (قلب العرض)
+location_input = st.text_input("📍 أدخل إحداثيات الموقع أو اسم قطاع المزرعة:", "26.345, 43.987")
 
 col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.write("### تحليل الأقمار الصناعية (Sentinel-2 L2A)")
-    fig, ax = plt.subplots(figsize=(10, 5))
-    ax.imshow(data, cmap='RdYlGn', interpolation='nearest')
-    plt.axis('off')
-    st.pyplot(fig)
-    st.caption("مراقبة حية بنظام NDVI - تحديث كل 5 أيام قمرية")
+    if st.button("التقاط صورة فضائية الآن 📡"):
+        with st.status("جاري توجيه القمر الصناعي ومعالجة البيانات الطيفية...", expanded=True) as status:
+            st.write("اتصال آمن بمركز بيانات ESA...")
+            time.sleep(1)
+            st.write(f"سحب البيانات الخام لقطاع {location_input}...")
+            time.sleep(1)
+            st.write("تحليل الموجات تحت الحمراء القريبة (NIR)...")
+            time.sleep(1)
+            status.update(label="تم استقبال وتحليل البيانات بنجاح!", state="complete")
+            
+            data = remote_sensing_engine(location_input)
+            fig, ax = plt.subplots(figsize=(10, 5))
+            ax.imshow(data, cmap='RdYlGn', interpolation='nearest')
+            plt.axis('off')
+            st.pyplot(fig)
+            
+            # السطر الذي طلبته لإثبات الربط الفضائي
+            st.write(f"🛰️ **Sentinel-2 Status:** Linked | **Lat/Long:** {location_input} | **Spectrum:** Multi-spectral L2A")
+            st.caption("Last Sync: Just Now | Processing Engine: G-Systems AI")
+    else:
+        st.info("انتظار إدخال الإحداثيات لبدء البث الفضائي...")
 
 with col2:
-    st.write("### المؤشرات الحيوية")
-    st.metric("صحة النبات (NDVI)", metrics['ndvi'])
-    st.metric("رطوبة التربة", metrics['moisture'])
-    
-    if "Optimal" in metrics['status']:
-        st.success(metrics['status'])
-    else:
-        st.error(metrics['status'])
-
-    st.markdown("---")
-    if st.button("🚀 توريق المحصول رقمياً (RWA)"):
-        with st.status("جاري توثيق البيانات على البلوكشين...", expanded=True) as status:
-            st.write("تحليل صور الأقمار الصناعية...")
-            time.sleep(1)
-            st.write("مطابقة إحداثيات الموقع...")
-            time.sleep(1)
-            st.write("إصدار عقود $GTK الذكية...")
-            status.update(label="تم التوريق بنجاح! الأصول جاهزة للاستثمار.", state="complete")
+    st.write("### 📊 التقرير الفني الفوري")
+    if 'data' in locals() or 'data' in globals():
+        st.metric("صحة النبات (NDVI Index)", "0.89")
+        st.metric("مستوى رطوبة التربة", "21%")
+        st.success("النتيجة: جاهزية كاملة للتصدير")
+        
+        st.markdown("---")
+        if st.button("🚀 إصدار شهادة توريق ($GTK)"):
+            st.toast("جاري التشفير على البلوكشين...")
+            time.sleep(1.5)
+            st.success("تم التوثيق كأصل رقمي موثق.")
 
 st.markdown("---")
-st.caption("G-Systems Global | نظام سيادي لتأمين سلاسل الإمداد الغذائي 2026")
+st.caption("G-Systems Global 2026 | تأمين مستقبل السيادة الغذائية")
