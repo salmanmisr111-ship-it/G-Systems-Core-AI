@@ -2,56 +2,78 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import time
 
-# إعدادات الواجهة السيادية
-st.set_page_config(page_title="G-Systems Global | Web3 Command", page_icon="🔗", layout="wide")
+# إعدادات الفخامة والسيادة الرقمية
+st.set_page_config(page_title="G-Systems Global | AI Command", page_icon="📡", layout="wide")
 
-# --- وظائف الـ Web3 ---
-def connect_wallet():
-    if st.sidebar.button("Connect MetaMask Wallet"):
-        # محاكاة الربط مع الحساب الظاهر في صورتك
-        st.sidebar.success("Connected: 0x71C...8A3 (Account 3)") #
-        st.sidebar.info("Network: Base Mainnet")
+# تخصيص واجهة المستخدم بـ CSS بسيط للهيبة التقنية
+st.markdown("""
+    <style>
+    .main { background-color: #0e1117; }
+    .stMetric { background-color: #161b22; border-radius: 10px; padding: 15px; border: 1px solid #30363d; }
+    </style>
+    """, unsafe_allow_html=True)
 
-# --- محرك البيانات ---
-def get_site_data(site_name):
-    if site_name == "Toshka (Egypt)":
-        return np.random.rand(10, 10), "0.82", "Sector D"
+# --- المحرك الذكي للمواقع ---
+def load_satellite_intel(site):
+    if site == "توشكى (مصر)":
+        data = np.random.rand(15, 15)
+        metrics = {"ndvi": "0.82", "moisture": "22%", "status": "Warning: Sector D"}
     else:
-        return np.random.rand(12, 12) * 0.9, "0.88", "Block 7 (Sukkari)"
+        data = np.random.rand(15, 15) * 0.95
+        metrics = {"ndvi": "0.88", "moisture": "18%", "status": "Optimal: Export Ready"}
+    return data, metrics
 
-# --- الواجهة الجانبية ---
-st.sidebar.title("🌍 Global Operations")
-selected_site = st.sidebar.selectbox("Select Strategic Site", ["Toshka (Egypt)", "Al-Rajhi Farm (Qassim)"])
-connect_wallet()
+# --- القائمة الجانبية: بوابة Web3 والاقتصاد ---
+st.sidebar.image("https://cdn-icons-png.flaticon.com/512/2092/2092663.png", width=80)
+st.sidebar.title("G-Systems Global")
+st.sidebar.info("Economic Integrity & Food Security")
+
+if st.sidebar.button("🔗 Connect MetaMask Wallet"):
+    with st.sidebar.spinner("Connecting to Base Network..."):
+        time.sleep(1.5)
+        st.sidebar.success("Linked: 0x71C...8A3 (Account 3)")
 
 st.sidebar.markdown("---")
-st.sidebar.subheader("💎 G-Token Economy")
-st.sidebar.write("Price: $1.24 | Trend: +5.2%") #
+st.sidebar.subheader("💎 $GTK Economy")
+st.sidebar.metric("Token Value", "$1.24", "5.2%")
 
 # --- لوحة التحكم الرئيسية ---
-st.title(f"🛡️ Strategic Command Center: {selected_site}")
-grid, ndvi, focus_area = get_site_data(selected_site)
+selected_site = st.selectbox("اختر الموقع الاستراتيجي للمراقبة:", ["توشكى (مصر)", "مزرعة الراجحي (القصيم)"])
+st.title(f"📡 مركز القيادة والسيطرة: {selected_site}")
 
-col1, col2 = st.columns([3, 1])
+data, metrics = load_satellite_intel(selected_site)
+
+col1, col2 = st.columns([2, 1])
 
 with col1:
-    st.subheader(f"Satellite Intelligence Feed: {selected_site}")
+    st.write("### تحليل الأقمار الصناعية (Sentinel-2 L2A)")
     fig, ax = plt.subplots(figsize=(10, 5))
-    ax.imshow(grid, cmap='RdYlGn')
-    plt.title(f"Real-time NDVI Analysis - {selected_site}")
+    ax.imshow(data, cmap='RdYlGn', interpolation='nearest')
+    plt.axis('off')
     st.pyplot(fig)
+    st.caption("مراقبة حية بنظام NDVI - تحديث كل 5 أيام قمرية")
 
 with col2:
-    st.write(f"### {focus_area} Insights")
-    st.metric("Health Index (NDVI)", ndvi)
-    if float(ndvi) > 0.85:
-        st.success("Certified for International Export") #
+    st.write("### المؤشرات الحيوية")
+    st.metric("صحة النبات (NDVI)", metrics['ndvi'])
+    st.metric("رطوبة التربة", metrics['moisture'])
     
-    # زر التوريق المالي (RWA)
-    if st.button("Tokenize Asset ($GTK)"):
-        st.warning("Verifying Proof of Harvest on Blockchain...")
-        st.success(f"Asset Securitized. Tokens issued to Account 3.")
+    if "Optimal" in metrics['status']:
+        st.success(metrics['status'])
+    else:
+        st.error(metrics['status'])
+
+    st.markdown("---")
+    if st.button("🚀 توريق المحصول رقمياً (RWA)"):
+        with st.status("جاري توثيق البيانات على البلوكشين...", expanded=True) as status:
+            st.write("تحليل صور الأقمار الصناعية...")
+            time.sleep(1)
+            st.write("مطابقة إحداثيات الموقع...")
+            time.sleep(1)
+            st.write("إصدار عقود $GTK الذكية...")
+            status.update(label="تم التوريق بنجاح! الأصول جاهزة للاستثمار.", state="complete")
 
 st.markdown("---")
-st.caption("G-Systems Global | Secured by Encrypted Blockchain Data Stream") #
+st.caption("G-Systems Global | نظام سيادي لتأمين سلاسل الإمداد الغذائي 2026")
