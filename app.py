@@ -4,72 +4,44 @@ import matplotlib.pyplot as plt
 from fpdf import FPDF
 import numpy as np
 
-# إعدادات الصفحة
-st.set_page_config(page_title="G-Systems Global AI", page_icon="🛰️", layout="wide")
+# إعدادات واجهة القيادة السيادية
+st.set_page_config(page_title="G-Systems Global | Strategic Command", page_icon="🛡️", layout="wide")
 
-# --- دالة التقرير الرسمي المحسنة ---
-def create_official_pdf(summary):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font('Arial', 'B', 20)
-    pdf.set_text_color(34, 139, 34)
-    pdf.cell(0, 15, 'G-SYSTEMS GLOBAL - STRATEGIC REPORT', ln=True, align='L')
-    pdf.set_draw_color(34, 139, 34)
-    pdf.line(10, 30, 200, 30)
-    pdf.ln(10)
-    pdf.set_font('Arial', '', 12)
-    pdf.set_text_color(0, 0, 0)
-    for key, value in summary.items():
-        pdf.cell(90, 10, f"{key}:", border=1)
-        pdf.cell(90, 10, f"{value}", border=1, ln=True)
-    return pdf.output(dest='S').encode('latin-1')
+# --- نظام الاقتصاد الرقمي (G-Token) ---
+def show_crypto_metrics():
+    st.sidebar.markdown("---")
+    st.sidebar.subheader("💎 G-Systems Economy")
+    st.sidebar.metric("G-Token ($GTK) Price", "$1.24", "+5.2%")
+    st.sidebar.write("Total Circulation: 100M GTK")
+    if st.sidebar.button("Mint New Strategic Token"):
+        st.sidebar.success("Token Minted on Base Network!")
 
-# --- الواجهة الرئيسية ---
-st.title("🛰️ G-Systems: Satellite Agriculture Intelligence")
-st.sidebar.header("🌍 National Monitoring Center")
+# --- واجهة الموقع ---
+st.title("🛡️ G-Systems Global: Strategic Command Center")
+show_crypto_metrics()
 
-# محاكاة التنبيهات السيادية
-alert_status = st.sidebar.select_slider("System Status", options=["Normal", "Warning", "CRITICAL ALERT"])
-if alert_status == "CRITICAL ALERT":
-    st.sidebar.error("🚨 ALERT: Sudden NDVI Drop detected in Sector D (Toshka)")
-
-# قسم الأقمار الصناعية (محاكاة Sentinel-2)
-col1, col2 = st.columns([2, 1])
+# خريطة الأقمار الصناعية (Simulation)
+st.subheader("🌍 Space Intelligence Dashboard (Sentinel-2)")
+col1, col2 = st.columns([3, 1])
 
 with col1:
-    st.subheader("Live Satellite Feed (Simulation: Sentinel-2)")
-    # رسم خريطة حرارية تخيلية لصحة النخيل
-    map_data = np.random.rand(10, 10)
-    fig, ax = plt.subplots()
-    im = ax.imshow(map_data, cmap='RdYlGn') # أحمر (مريض) إلى أخضر (سليم)
-    plt.colorbar(im, label="NDVI Health Index")
+    grid = np.random.rand(12, 12)
+    fig, ax = plt.subplots(figsize=(8, 4))
+    im = ax.imshow(grid, cmap='RdYlGn')
+    plt.title("Toshka Sector Monitoring - Real-time NDVI")
     st.pyplot(fig)
-    st.caption("Monitoring Toshka Zone - Grid Alpha-7")
 
 with col2:
-    st.subheader("Data Insights")
-    st.metric("Vegetation Index (NDVI)", "0.82", "+0.05")
-    st.metric("Soil Moisture (IoT)", "22%", "-3%")
-    st.info("AI Note: Sector B requires irrigation in 48 hours.")
+    st.write("### Sector D Analysis")
+    st.error("Anomaly Detected")
+    st.warning("Action: Inspect Grid A5")
+    st.info("Water Stress: 12%")
 
-# رفع البيانات وإصدار التقارير
+# بوابة المستثمر
 st.markdown("---")
-uploaded_file = st.file_uploader("Upload Sector Data for Analysis", type=["xlsx"])
-
-if uploaded_file:
-    df = pd.read_excel(uploaded_file)
-    st.success("Data Analyzed via AI Core.")
+st.subheader("📑 Investment & Compliance Reports")
+if st.button("Generate Blockchain-Secured Report"):
+    summary = {"Status": "Verified", "Security": "AES-256 Crypto", "Asset": "Palm Sector A"}
+    st.success("Report Secured on Ledger. Ready for Download.")
     
-    summary = {
-        "Report ID": "GS-2026-X9",
-        "Target Zone": "Toshka South",
-        "Satellite Source": "Sentinel-2 L2A",
-        "Anomalies Detected": "2 Localized Spots",
-        "Action Required": "Immediate Inspection Sector D"
-    }
-    
-    pdf_report = create_official_pdf(summary)
-    st.download_button("📥 Download Official Strategic Report", data=pdf_report, file_name="Strategic_Analysis.pdf")
-
-st.markdown("---")
-st.caption("Powered by G-Systems Global AI | Secure Cloud Gateway")
+st.caption("G-Systems Global © 2026 | National Food Security Protocol")
