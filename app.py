@@ -4,20 +4,21 @@ import numpy as np
 import time
 import os
 
-# إعدادات الواجهة السيادية لشركة G-Systems Global
-st.set_page_config(page_title="G-Systems | Multi-Layer AI", page_icon="📡", layout="wide")
+# إعدادات الواجهة السيادية للهيبة التقنية (توسيع الواجهة لتستوعب 3 أعمدة)
+st.set_page_config(page_title="G-Systems Global | Multi-Layer Analysis", page_icon="📡", layout="wide")
 
 # تخصيص CSS لتبدو الواجهة أكثر هيبة واحترافية
 st.markdown("""
     <style>
+    .reportview-container .main .block-container{ padding-top: 1rem; padding-bottom: 1rem; }
     .stMetric { background-color: #1a1e26; border-radius: 10px; padding: 15px; border: 1px solid #30363d; }
     .stProgress > div > div > div > div { background-color: #2e7d32; }
     </style>
     """, unsafe_allow_html=True)
 
-# --- محرك البحث والتحليل الطيفي (G-Systems Engine) ---
-def analyze_and_recommend(location):
-    # محاكاة لبيانات حقيقية (NDVI)
+# --- محرك البحث والتحليل الطيفي الذكي (G-Systems Engine) ---
+def analyze_multi_layer(location):
+    # مصفوفة بيانات تحاكي الواقع (NDVI)
     data = np.random.rand(20, 20)
     total = data.size
     
@@ -29,21 +30,21 @@ def analyze_and_recommend(location):
     
     stats = {"green": green, "yellow": yellow, "orange": orange, "red": red}
     
-    # محرك التوصيات
+    # محرك التوصيات بناءً على الإحصائيات (المعالج الذكي)
     if red > 5 or orange > 10:
-        rec = "⚠️ تدخل عاجل: رصد إجهاد مائي حاد في القطاع الشرقي. يُنصح بفحص صمامات الري."
+        rec = "⚠️ تدخل عاجل: رصد إجهاد مائي حاد في القطاع الشرقي. يُنصح بفحص صمامات الري فوراً."
         color = "red"
     elif yellow > 25:
-        rec = "💡 نصيحة: وجود إجهاد بسيط. يُنصح بإضافة جرعة تسميد ورقي لتحسين كفاءة التمثيل الضوئي."
+        rec = "💡 توصية فنية: وجود إجهاد بسيط. يُنصح بإضافة جرعة تسميد ورقي لتعزيز النشاط الحيوي."
         color = "blue"
     else:
-        rec = "✅ تقرير الحالة: الغطاء النباتي مثالي. لا حاجة لتدخل بشري حالياً."
+        rec = "✅ تقرير الحالة: الغطاء النباتي مثالي. لا حاجة لتدخل بشري حالياً في هذا القطاع."
         color = "green"
         
     return data, stats, rec, color
 
 # --- واجهة الرصد والتحليل ---
-st.title("🛰️ مركز الرصد والتحليل المتكامل (G-Systems)")
+st.title("🛰️ مركز الرصد والتحليل المتكامل (G-Systems Global)")
 st.caption("الربط الحي بالقمر الصناعي Sentinel-2 ومنصة Planet Labs")
 st.markdown("---")
 
@@ -56,19 +57,19 @@ col_real, col_heat, col_stats = st.columns([1.5, 1.5, 1])
 if st.button("تحديث المسح الفوري 📡"):
     with st.status("جاري سحب الصور الطيفية وتحليل البيانات...", expanded=True) as status:
         time.sleep(3) # الإبهار التقني
-        data, stats, rec, rec_color = analyze_and_recommend(location_input)
+        data, stats, rec, rec_color = analyze_multi_layer(location_input)
         
         # 1. طبقة الرؤية الحقيقية (Real View) كما طلبت في image_6.png
         with col_real:
             st.subheader("🗺️ الرؤية الفضائية البصرية (Real View)")
             
-            # كود آمن لعرض الصورة لتجاوز خطأ image_10.png
-            visual_map_path = "visual_map.jpg"
-            if os.path.exists(visual_map_path):
-                st.image(visual_map_path, caption=f"آخر بث فضائي لقطاع {location_input}", use_container_width=True)
+            # كود آمن لعرض الصورة لتجاوز الخطأ السابق
+            image_path = "rajhi_farm.jpg"
+            if os.path.exists(image_path):
+                st.image(image_path, caption=f"آخر بث فضائي لقطاع {location_input}", use_container_width=True)
                 st.write(f"🛰️ **Source:** Copernicus Open Access Hub")
             else:
-                st.warning(f"⚠️ لم يتم العثور على ملف الصورة الحقيقية '{visual_map_path}'. يرجى وضع الملف في نفس مجلد الكود.")
+                st.warning(f"⚠️ لم يتم العثور على ملف الصورة '{image_path}'. يرجى وضع الملف في نفس مجلد الكود لتجاوز الخطأ.")
                 st.image("https://via.placeholder.com/800x600.png?text=Satellite+Feed+Connecting...", caption="انتظار ربط القمر الصناعي", use_container_width=True)
             
         # 2. طبقة التحليل الطيفي (NDVI) كما في كودنا السابق
@@ -82,7 +83,7 @@ if st.button("تحديث المسح الفوري 📡"):
             
         # 3. تقرير النسب المئوية والتوصيات (100% كما في كودنا)
         with col_stats:
-            st.subheader("📊 تقرير القطاع")
+            st.subheader("📊 تقرير القطاع التفاعلي")
             
             # عرض النسب الإحصائية (100%)
             st.write(f"🟢 مثالي: {stats['green']}%")
@@ -103,7 +104,8 @@ if st.button("تحديث المسح الفوري 📡"):
             else:
                 st.success(rec)
             
-            st.button("🚀 إصدار أمر عمل للفريق")
+            # زر أمر العمل لإظهار قوة النظام التفاعلي
+            st.button("🚀 إصدار أمر عمل للفريق الميداني")
             
         status.update(label="تم تحديث كافة الطبقات وتحليل البيانات بنجاح!", state="complete")
         
@@ -111,4 +113,4 @@ else:
     st.info("قم بالضغط على الزر لبدء الرصد والتحليل المتعدد الطبقات.")
 
 st.markdown("---")
-st.caption("G-Systems Global 2026 | تأمين سلاسل الإمداد الغذائي عبر تكنولوجيا الفضاء")
+st.caption("G-Systems Global 2026 | تأمين سلاسل الإمداد الغذائي عبر تكنولوجيا الفضاء والبلوكشين")
